@@ -1,0 +1,62 @@
+<div class="container mt-3">
+    <app-count-empleados 
+          [cantMujeres]="getTotal('f')" 
+          [cantHombres]="getTotal('m')" 
+          [cantTodos]="getTotal('todos')"
+          (filtroChange)="filtro = $event"
+    ></app-count-empleados>
+    <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title text-center" *ngIf="listaEmpleados.length ===0">Aún no se agregaron Empleados</h5>
+            <table class="table" id="tabla" *ngIf="listaEmpleados.length >0">
+                <thead>
+                  <tr>
+                    <th>Legajo</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Sexo</th>
+                    <th>Salario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let empleado of filtrar(filtro)">
+                    <td>{{empleado.legajo}}</td>
+                    <td>{{empleado.nombre}}</td>
+                    <td>{{empleado.apellido}}</td>
+                    <td>{{empleado.sexo}}</td>
+                    <td>{{empleado.salario | currency}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <div class="card p-3 mt-3">
+      <h5 class="card-title text-center">Agregar Empleado</h5>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" [(ngModel)]="nombreEmpleado" class="form-control" id="nombre" placeholder="Nombre del empleado">
+      </div>
+      <div class="mb-3">
+        <label for="apellido" class="form-label">Apellido</label>
+        <input type="email" [(ngModel)]="apellidoEmpleado" class="form-control" id="apellido" placeholder="Apellido del empleado">
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [(ngModel)]="sexoEmpleado" type="radio" name="sexo" id="male" value="m" >
+        <label class="form-check-label" for="male">
+          Masculino
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" [(ngModel)]="sexoEmpleado" type="radio" name="sexo" id="female" value="f">
+        <label class="form-check-label" for="female">
+          Femenino
+        </label>
+      </div>
+      <div class="mb-3">
+        <label for="salario" class="form-label">Salario</label>
+        <input type="number" [(ngModel)]="salarioEmpleado" class="form-control" id="salario" placeholder="Salario del empleado">
+      </div>
+      <button class="btn btn-lg btn-primary" (click)="agregarEmpleado()">Agregar</button>
+    </div>
+</div>
